@@ -248,8 +248,6 @@ namespace RestApiNorthwind.Models
 
                 entity.Property(e => e.Description).HasMaxLength(2000);
 
-                entity.Property(e => e.Keycode).HasMaxLength(10);
-
                 entity.Property(e => e.Method).HasMaxLength(10);
             });
 
