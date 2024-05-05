@@ -48,13 +48,13 @@ namespace RestApiNorthwind.Models
         public virtual DbSet<SummaryOfSalesByYear> SummaryOfSalesByYears { get; set; } = null!;
         public virtual DbSet<Supplier> Suppliers { get; set; } = null!;
         public virtual DbSet<Territory> Territories { get; set; } = null!;
+        public virtual DbSet<User> Users { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=TIIA\\SQLEXTIIAVI;Database=northwind;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=secret;");
             }
         }
 
@@ -828,6 +828,19 @@ namespace RestApiNorthwind.Models
                     .HasForeignKey(d => d.RegionId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Territories_Region");
+            });
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.Property(e => e.Email).HasMaxLength(30);
+
+                entity.Property(e => e.FirstName).HasMaxLength(30);
+
+                entity.Property(e => e.LastName).HasMaxLength(30);
+
+                entity.Property(e => e.Password).HasMaxLength(200);
+
+                entity.Property(e => e.UserName).HasMaxLength(10);
             });
 
             OnModelCreatingPartial(modelBuilder);
